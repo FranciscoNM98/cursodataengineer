@@ -1,0 +1,244 @@
+version: 2
+
+sources:
+  - name: sql_server_dbo
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno_4
+        {%- else -%} {{target.database}}_bronze_db_alumno_4
+        {%- endif -%}
+    tables:
+      - name: addresses
+        columns:
+          - name: address
+            description: "Dirección del cliente."
+            tests:
+              - not_null
+          - name: state
+            description: "Estado de residencia."
+            tests:
+              - not_null
+          - name: zipcode
+            description: "Código postal."
+            tests:
+              - not_null
+          - name: country
+            description: "País de residencia."
+            tests:
+              - not_null
+          - name: address_id
+            description: "Identificador de la dirección."
+            tests:
+              - unique
+              - not_null
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: events
+        columns:
+          - name: created_at
+            description: "Momento de creación."
+            tests:
+              - not_null
+          - name: user_id
+            description: "Identificador del usuario."
+            tests:
+              - not_null
+          - name: session_id
+            description: "Identificador de la sesión."
+            tests:
+              - not_null
+          - name: order_id
+            description: "Identificador de pedido en caso que lo hubiera."
+          - name: page_url
+            description: "Dirección web desde la que se accede."
+            tests:
+              - not_null
+          - name: event_id
+            description: "Identificador del evento."
+            tests:
+              - unique
+              - not_null
+          - name: product_id
+            description: "Identificador del producto."
+          - name: event_type
+            description: "Tipo de evento realizado."
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['page_view', 'add_to_cart', 'package_shipped', 'checkout']
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: fivetran_audit
+        columns:
+          - name: id
+          - name: message
+          - name: update_started
+          - name: update_id
+          - name: schema
+          - name: table
+          - name: start
+          - name: done
+          - name: rows_updated_or_inserted
+          - name: status
+          - name: progress
+          - name: _fivetran_synced
+
+      - name: order_items
+        columns:
+          - name: order_id
+            description: "Identificador de pedido."
+            tests:
+              - not_null
+          - name: product_id
+            description: "Identificador del producto."
+            tests:
+              - not_null
+          - name: quantity
+            description: "Cantidad pedida."
+            tests:
+              - not_null
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: orders
+        columns:
+          - name: shipping_service
+            description: "Empresa que realiza el envío del pedido."
+            tests:
+              - not_null
+          - name: order_total
+            description: "Coste total del pedido."
+            tests:
+              - not_null
+          - name: promo_id
+            description: "Identificador de la promoción."
+          - name: tracking_id
+            description: "Identificador de seguimiento del pedido."
+          - name: estimated_delivery_at
+            description: "Fecha estimada de entrega."
+          - name: order_cost
+            description: "Coste del pedido."
+            tests:
+              - not_null
+          - name: shipping_cost
+            description: "Coste del envío."
+            tests:
+              - not_null
+          - name: address_id
+            description: "Identificador de la dirección."
+            tests:
+              - not_null
+          - name: status
+            description: "Estado del pedido."
+            tests:
+              - accepted_values:
+                  values: ['delivered', 'shipped', 'preparing']
+              - not_null
+          - name: created_at
+            description: "Fecha de creación del pedido."
+            tests:
+              - not_null
+          - name: order_id
+            description: "Identificador de pedido"
+            tests:
+              - unique
+              - not_null
+          - name: user_id
+            description: "Identificador de usuario."
+            tests:
+              - not_null
+          - name: delivered_at
+            description: "Fecha final de entrega."
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: products
+        columns:
+          - name: product_id
+            description: "Identificador de producto."
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: "Nombre del producto."
+            tests:
+              - not_null
+          - name: inventory
+            description: "Cantidad de inventario de determinado producto."
+            tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+          - name: price
+            description: "Precio del producto."
+            tests:
+              - not_null
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: promos
+        columns:
+          - name: status
+            description: "Estado de la promoción."
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['active', 'inactive']
+          - name: discount
+            description: "Descuento que aplica la promoción en porcentaje."
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 1
+                  max_value: 100
+          - name: promo_id
+            description: "Nombre de la promoción."
+            tests:
+              - unique
+              - not_null
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: users
+        columns:
+          - name: total_orders
+            description: "Pedidos totales."
+          - name: created_at
+            description: "Fecha de creación del usuario."
+            tests:
+              - not_null
+          - name: email
+            description: "Correo electrónico del usuario."
+            tests:
+              - unique
+              - not_null
+          - name: last_name
+            description: "Apellido del usuario."
+            tests:
+              - not_null
+          - name: first_name
+            description: "Nombre del usuario."
+            tests:
+              - not_null
+          - name: updated_at
+            description: "Fecha de última actualización."
+            tests:
+              - not_null
+          - name: address_id
+            description: "Identificador de dirección."
+            tests:
+              - not_null
+          - name: user_id
+            description: "Identificador de usuario."
+            tests:
+              - unique
+              - not_null
+          - name: phone_number
+            description: "Número de teléfono."
+            tests:
+              - not_null
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
