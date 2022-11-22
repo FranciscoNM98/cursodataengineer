@@ -1,6 +1,6 @@
 WITH src_sql_server AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'orders') }}
+    FROM dev_bronze_db_alumno_4.sql_server_dbo.orders
     ),
 
 PEDIDOS AS (
@@ -10,6 +10,7 @@ PEDIDOS AS (
         , promo_id
         , tracking_id AS seguimiento_id
         , estimated_delivery_at AS fecha_estimada_entrega
+        , delivered_at AS fecha_entrega
         , order_cost AS coste_pedido_$
         , shipping_cost AS coste_envio_$
         , address_id AS direccion_id

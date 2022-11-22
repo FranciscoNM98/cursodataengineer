@@ -1,6 +1,6 @@
 WITH src_sql_server AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'products') }}
+    FROM dev_bronze_db_alumno_4.sql_server_dbo.products
     ),
 
 PRODUCTOS AS (
