@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: sql_server_dbo
+    schema: sql_server_dbo
     database: |  
         {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno_4
         {%- elif target.name == 'ci' -%} dev_bronze_db_alumno_4
