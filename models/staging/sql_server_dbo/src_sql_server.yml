@@ -13,23 +13,23 @@ sources:
       - name: addresses
         columns:
           - name: address
-            description: "Dirección del cliente."
+            description: "Client address."
             tests:
               - not_null
           - name: state
-            description: "Estado de residencia."
+            description: "State of residence."
             tests:
               - not_null
           - name: zipcode
-            description: "Código postal."
+            description: "Zipcode of the client."
             tests:
               - not_null
           - name: country
-            description: "País de residencia."
+            description: "Country of residence."
             tests:
               - not_null
           - name: address_id
-            description: "Identificador de la dirección."
+            description: "Address identificator."
             tests:
               - unique
               - not_null
@@ -39,32 +39,32 @@ sources:
       - name: events
         columns:
           - name: created_at
-            description: "Momento de creación."
+            description: "Date of creation."
             tests:
               - not_null
           - name: user_id
-            description: "Identificador del usuario."
+            description: "User identificator."
             tests:
               - not_null
           - name: session_id
-            description: "Identificador de la sesión."
+            description: "Session identificator."
             tests:
               - not_null
           - name: order_id
-            description: "Identificador de pedido en caso que lo hubiera."
+            description: "Order identificator if it exists."
           - name: page_url
-            description: "Dirección web desde la que se accede."
+            description: "Web url of access."
             tests:
               - not_null
           - name: event_id
-            description: "Identificador del evento."
+            description: "Event identificator."
             tests:
               - unique
               - not_null
           - name: product_id
-            description: "Identificador del producto."
+            description: "Product identificator."
           - name: event_type
-            description: "Tipo de evento realizado."
+            description: "Type of done event."
             tests:
               - not_null
               - accepted_values:
@@ -90,15 +90,15 @@ sources:
       - name: order_items
         columns:
           - name: order_id
-            description: "Identificador de pedido."
+            description: "Order identificator."
             tests:
               - not_null
           - name: product_id
-            description: "Identificador del producto."
+            description: "Product identificator."
             tests:
               - not_null
           - name: quantity
-            description: "Cantidad pedida."
+            description: "Item quantity."
             tests:
               - not_null
           - name: _fivetran_deleted
@@ -107,74 +107,74 @@ sources:
       - name: orders
         columns:
           - name: shipping_service
-            description: "Empresa que realiza el envío del pedido."
+            description: "Shipping service that is in charge of the order."
             tests:
               - not_null
           - name: order_total
-            description: "Coste total del pedido."
+            description: "Total cost of combined order and shipping costs."
             tests:
               - not_null
           - name: promo_id
-            description: "Identificador de la promoción."
+            description: "Name of the promotion."
           - name: tracking_id
-            description: "Identificador de seguimiento del pedido."
+            description: "Tracking identificator."
           - name: estimated_delivery_at
-            description: "Fecha estimada de entrega."
+            description: "Date of estimated order delivery."
           - name: order_cost
-            description: "Coste del pedido."
+            description: "Cost of the order."
             tests:
               - not_null
           - name: shipping_cost
-            description: "Coste del envío."
+            description: "Cost of the shipping service."
             tests:
               - not_null
           - name: address_id
-            description: "Identificador de la dirección."
+            description: "Address identificator."
             tests:
               - not_null
           - name: status
-            description: "Estado del pedido."
+            description: "Status of the order."
             tests:
               - accepted_values:
                   values: ['delivered', 'shipped', 'preparing']
               - not_null
           - name: created_at
-            description: "Fecha de creación del pedido."
+            description: "Date of order creation."
             tests:
               - not_null
           - name: order_id
-            description: "Identificador de pedido"
+            description: "Order identificator."
             tests:
               - unique
               - not_null
           - name: user_id
-            description: "Identificador de usuario."
+            description: "User identificator."
             tests:
               - not_null
           - name: delivered_at
-            description: "Fecha final de entrega."
+            description: "Date of order delivery."
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
       - name: products
         columns:
           - name: product_id
-            description: "Identificador de producto."
+            description: "Product identificator."
             tests:
               - unique
               - not_null
           - name: name
-            description: "Nombre del producto."
+            description: "Product name."
             tests:
               - not_null
           - name: inventory
-            description: "Cantidad de inventario de determinado producto."
+            description: "Quantity of products in the inventory."
             tests:
               - not_null
               - dbt_utils.expression_is_true:
                   expression: '>= 0'
           - name: price
-            description: "Precio del producto."
+            description: "Product price."
             tests:
               - not_null
           - name: _fivetran_deleted
@@ -183,20 +183,20 @@ sources:
       - name: promos
         columns:
           - name: status
-            description: "Estado de la promoción."
+            description: "Status of the promotion."
             tests:
               - not_null
               - accepted_values:
                   values: ['active', 'inactive']
           - name: discount
-            description: "Descuento que aplica la promoción en porcentaje."
+            description: "Discount in dollars to the order."
             tests:
               - not_null
               - dbt_utils.accepted_range:
                   min_value: 1
                   max_value: 100
           - name: promo_id
-            description: "Nombre de la promoción."
+            description: "Name of the promotion."
             tests:
               - unique
               - not_null
@@ -206,39 +206,39 @@ sources:
       - name: users
         columns:
           - name: total_orders
-            description: "Pedidos totales."
+            description: "Total number of orders made by an user."
           - name: created_at
-            description: "Fecha de creación del usuario."
+            description: "Date of user creation."
             tests:
               - not_null
           - name: email
-            description: "Correo electrónico del usuario."
+            description: "Email of the user"
             tests:
               - unique
               - not_null
           - name: last_name
-            description: "Apellido del usuario."
+            description: "Last name"
             tests:
               - not_null
           - name: first_name
-            description: "Nombre del usuario."
+            description: "First name"
             tests:
               - not_null
           - name: updated_at
-            description: "Fecha de última actualización."
+            description: "Date of last update."
             tests:
               - not_null
           - name: address_id
-            description: "Identificador de dirección."
+            description: "Address identificator."
             tests:
               - not_null
           - name: user_id
-            description: "Identificador de usuario."
+            description: "User identificator."
             tests:
               - unique
               - not_null
           - name: phone_number
-            description: "Número de teléfono."
+            description: "Phone number of the user."
             tests:
               - not_null
           - name: _fivetran_deleted

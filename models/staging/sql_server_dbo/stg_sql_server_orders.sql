@@ -3,22 +3,24 @@ WITH src_sql_server AS (
     FROM {{ source('sql_server_dbo', 'orders') }}
     ),
 
-PEDIDOS AS (
+ORDERS AS (
     SELECT
-          shipping_service AS servicio_envio
-        , order_total AS coste_total_$
+        order_id
+        , address_id
+        , user_id
+        , tracking_id
         , promo_id
-        , tracking_id AS seguimiento_id
-        , estimated_delivery_at AS fecha_estimada_entrega
-        , delivered_at AS fecha_entrega
-        , order_cost AS coste_pedido_$
-        , shipping_cost AS coste_envio_$
-        , address_id AS direccion_id
-        , status AS estado
-        , created_at AS fecha_creacion
-        , order_id AS pedido_id
-        , user_id AS usuario_id
+        , created_at AS order_creation
+        , estimated_delivery_at AS order_estimated_delivery
+        , delivered_at AS order_delivery
+        , status
+        , shipping_service
+        , shipping_cost AS shipping_cost_$
+        , order_cost AS order_cost_$
+        , order_total AS order_total_$
+        , _fivetran_deleted
+        , _fivetran_synced
     FROM src_sql_server
     )
 
-SELECT * FROM PEDIDOS
+SELECT * FROM ORDERS
