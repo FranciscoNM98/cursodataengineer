@@ -13,20 +13,20 @@ sources:
       - name: budget
         columns:
           - name: _row
-            description: "Filas."
+            description: "Number of row."
             tests:
               - unique
               - not_null
           - name: quantity
-            description: "Cantidad de presupuesto."
+            description: "Budget quantity."
             tests:
               - not_null
           - name: month
-            description: "Fecha."
+            description: "Date of budget."
             tests:
               - not_null
           - name: product_id
-            description: "Identificador de producto."
+            description: "Product identificator."
             tests:
               - not_null
           - name: _fivetran_synced

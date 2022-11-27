@@ -3,13 +3,15 @@ WITH src_sql_server AS (
     FROM {{ source('sql_server_dbo', 'products') }}
     ),
 
-PRODUCTOS AS (
+PRODUCTS AS (
     SELECT
-         product_id AS producto_id
-        , name AS nombre_producto
-        , inventory AS inventario
-        , price AS precio_producto_$
+         product_id
+         , name
+         , inventory
+         , price AS price_$
+         , _fivetran_deleted
+         , _fivetran_synced
     FROM src_sql_server
     )
 
-SELECT * FROM PRODUCTOS
+SELECT * FROM PRODUCTS

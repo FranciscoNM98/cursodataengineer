@@ -3,12 +3,14 @@ WITH src_sql_server AS (
     FROM {{ source('sql_server_dbo', 'order_items') }}
     ),
 
-OBJETOS_PEDIDO AS (
+ORDER_ITEMS AS (
     SELECT
-        order_id as pedido_id
-        , product_id as producto_id
-        , quantity as cantidad
+        order_id
+        , product_id
+        , quantity as item_quantity
+        , _fivetran_deleted
+        , _fivetran_synced
     FROM src_sql_server
     )
 
-SELECT * FROM OBJETOS_PEDIDO
+SELECT * FROM ORDER_ITEMS

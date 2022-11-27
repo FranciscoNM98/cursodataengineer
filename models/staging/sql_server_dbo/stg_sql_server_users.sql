@@ -3,16 +3,19 @@ WITH src_sql_server AS (
     FROM {{ source('sql_server_dbo','users') }}
     ),
 
-USUARIOS AS (
+USERS AS (
     SELECT
-         created_at AS creacion_usuario
-        , email AS correo_electronico
-        , last_name AS apellido
-        , first_name AS nombre
-        , updated_at AS ultima_actualizacion
-        , user_id AS usuario_id
-        , phone_number AS num_tlfn
+         user_id
+         , address_id
+         , first_name
+         , last_name
+         , email
+         , phone_number
+         , created_at AS date_creation
+         , updated_at AS date_update
+         , _fivetran_deleted
+         , _fivetran_synced
     FROM src_sql_server
     )
 
-SELECT * FROM USUARIOS
+SELECT * FROM USERS
