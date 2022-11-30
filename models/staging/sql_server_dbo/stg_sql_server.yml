@@ -1,0 +1,139 @@
+version: 2
+
+models:
+      - name: stg_sql_server_addresses
+        columns:
+          - name: address_id
+            description: ""
+          - name: country
+            description: ""
+          - name: state
+            description: ""
+          - name: zipcode
+            description: ""
+          - name: address
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_events
+        columns:
+          - name: event_id
+            description: ""
+          - name: user_id
+            description: ""
+          - name: session_id
+            description: ""
+          - name: order_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: date_event
+            description: ""
+          - name: event_type
+            description: ""
+          - name: page_url
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_order_items
+        columns:
+          - name: order_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: item_quantity
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_orders
+        columns:
+          - name: order_id
+            description: ""
+          - name: address_id
+            description: ""
+          - name: user_id
+            description: ""
+          - name: tracking_id
+            description: ""
+          - name: promo_id
+            description: ""
+          - name: order_creation
+            description: ""
+          - name: order_estimated_delivery
+            description: ""
+          - name: order_delivery
+            description: ""
+          - name: status
+            description: ""
+          - name: shipping_service
+            description: ""
+          - name: shipping_cost_$
+            description: ""
+          - name: order_cost_$
+            description: ""
+          - name: order_total_$
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_products
+        columns:
+          - name: product_id
+            description: ""
+          - name: name
+            description: ""
+          - name: inventory
+            description: ""
+          - name: price_$
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_promos
+        columns:
+          - name: promo_id
+            description: ""
+          - name: discount_$
+            description: ""
+          - name: status
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: stg_sql_server_users
+        columns:
+          - name: user_id
+            description: ""
+          - name: address_id
+            description: ""
+          - name: first_name
+            description: ""
+          - name: last_name
+            description: ""
+          - name: email
+            description: ""
+          - name: phone_number
+            description: ""
+          - name: date_creation
+            description: ""
+          - name: date_update
+            description: ""
+          - name: _fivetran_deleted
+            description: ""
+          - name: _fivetran_synced
+            description: ""
