@@ -64,7 +64,7 @@ sources:
           - name: product_id
             description: "Product identificator."
           - name: event_type
-            description: "Type of done event."
+            description: "Type of made event."
             tests:
               - not_null
               - accepted_values:
