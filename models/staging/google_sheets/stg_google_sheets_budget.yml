@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_google_sheets_budget
+    columns:
+      - name: _row
+        description: "Number of row."
+        tests:
+          - not_null
+      - name: product_id
+        description: "Product identificator."
+      - name: quantity
+        description: "Budget quantity."
+      - name: date
+        description: "Date of budget."
+      - name: _fivetran_synced

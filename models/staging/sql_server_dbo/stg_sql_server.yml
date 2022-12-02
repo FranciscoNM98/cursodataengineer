@@ -1,139 +1,139 @@
 version: 2
 
 models:
-      - name: stg_sql_server_addresses
-        columns:
-          - name: address_id
-            description: ""
-          - name: country
-            description: ""
-          - name: state
-            description: ""
-          - name: zipcode
-            description: ""
-          - name: address
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_addresses
+    columns:
+      - name: address_id
+        description: "Address identificator."
+        tests:
+              - not_null
+      - name: country
+        description: "Country of residence."
+      - name: state
+        description: "State of residence."
+      - name: zipcode
+        description: "Zipcode of the client."
+      - name: address
+        description: "Client address."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_events
-        columns:
-          - name: event_id
-            description: ""
-          - name: user_id
-            description: ""
-          - name: session_id
-            description: ""
-          - name: order_id
-            description: ""
-          - name: product_id
-            description: ""
-          - name: date_event
-            description: ""
-          - name: event_type
-            description: ""
-          - name: page_url
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_events
+    columns:
+      - name: event_id
+        description: "Event identificator."
+        tests:
+              - not_null
+      - name: user_id
+        description: "User identificator."
+      - name: session_id
+        description: "Session identificator."
+      - name: order_id
+        description: "Order identificator if it exists."
+      - name: product_id
+        description: "Product identificator."
+      - name: date_event
+        description: "Date of creation."
+      - name: event_type
+        description: "{{ doc('event_type') }}"
+      - name: page_url
+        description: "Web url of access."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_order_items
-        columns:
-          - name: order_id
-            description: ""
-          - name: product_id
-            description: ""
-          - name: item_quantity
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_order_items
+    columns:
+      - name: order_id
+        description: "Order identificator."
+        tests:
+              - not_null
+      - name: product_id
+        description: "Product identificator."
+      - name: item_quantity
+        description: "Quantity of an item."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_orders
-        columns:
-          - name: order_id
-            description: ""
-          - name: address_id
-            description: ""
-          - name: user_id
-            description: ""
-          - name: tracking_id
-            description: ""
-          - name: promo_id
-            description: ""
-          - name: order_creation
-            description: ""
-          - name: order_estimated_delivery
-            description: ""
-          - name: order_delivery
-            description: ""
-          - name: status
-            description: ""
-          - name: shipping_service
-            description: ""
-          - name: shipping_cost_$
-            description: ""
-          - name: order_cost_$
-            description: ""
-          - name: order_total_$
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_orders
+    columns:
+      - name: order_id
+        description: "Order identificator."
+        tests:
+              - not_null
+      - name: address_id
+        description: "Address identificator."
+      - name: user_id
+        description: "User identificator."
+      - name: tracking_id
+        description: "Tracking identificator."
+      - name: promo_id
+        description: "Name of the promotion."
+      - name: order_creation
+        description: "Date of order creation."
+      - name: order_estimated_delivery
+        description: "Date of estimated order delivery."
+      - name: order_delivery
+        description: "Date of order delivery."
+      - name: status
+        description: "{{ doc('order_status') }}"
+      - name: shipping_service
+        description: "Shipping service that is in charge of the order."
+      - name: shipping_cost_$
+        description: "Cost of the shipping service."
+      - name: order_cost_$
+        description: "Cost of the order."
+      - name: order_total_$
+        description: "Total cost of combined order and shipping costs."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_products
-        columns:
-          - name: product_id
-            description: ""
-          - name: name
-            description: ""
-          - name: inventory
-            description: ""
-          - name: price_$
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_products
+    columns:
+      - name: product_id
+        description: "Product identificator."
+        tests:
+              - not_null
+      - name: name
+        description: "Product name."
+      - name: inventory
+        description: "Quantity of products in the inventory."
+      - name: price_$
+        description: "Product price."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_promos
-        columns:
-          - name: promo_id
-            description: ""
-          - name: discount_$
-            description: ""
-          - name: status
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_promos
+    columns:
+      - name: promo_id
+        description: "Name of the promotion."
+        tests:
+              - not_null
+      - name: discount_$
+        description: "Discount in dollars to the order."
+      - name: status
+        description: "Status of the promotion."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
 
-      - name: stg_sql_server_users
-        columns:
-          - name: user_id
-            description: ""
-          - name: address_id
-            description: ""
-          - name: first_name
-            description: ""
-          - name: last_name
-            description: ""
-          - name: email
-            description: ""
-          - name: phone_number
-            description: ""
-          - name: date_creation
-            description: ""
-          - name: date_update
-            description: ""
-          - name: _fivetran_deleted
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+  - name: stg_sql_server_users
+    columns:
+      - name: user_id
+        description: "User identificator."
+        tests:
+              - not_null
+      - name: address_id
+        description: "Address identificator."
+      - name: first_name
+        description: "First name."
+      - name: last_name
+        description: "Last name."
+      - name: email
+        description: "Email of the user."
+      - name: phone_number
+        description: "Phone number of the user."
+      - name: date_creation
+        description: "Date of user creation."
+      - name: date_update
+        description: "Date of last update."
+      - name: _fivetran_deleted
+      - name: _fivetran_synced
