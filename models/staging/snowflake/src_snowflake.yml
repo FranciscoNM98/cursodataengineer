@@ -1,0 +1,37 @@
+version: 2
+
+sources:
+  - name: snowflake
+    database: dev_bronze_db_alumno_4
+    tables:
+      - name: products_details
+        columns:
+          - name: product_id
+            description: "Product identificator."
+          - name: price_type
+            description: "Defines the price with a range in terms of how cheap/expensive it is."
+
+      - name: users_details
+        columns:
+          - name: user_id
+            description: "User identificator."
+          - name: age
+            description: "Age of the user that is between 18 and 99."
+          - name: gender
+            description: "Gender of the user."
+          - name: civil_status
+            description: "Civil status of the user."
+          - name: birthdate
+            description: "Birthdate of the user."
+          - name: work_status
+            description: "Defines if the user is working or not."
+          - name: current_work
+            description: "Current work of the user if they are working."
+          - name: salary
+            description: "Range of salary of the user"
+          - name: children
+            description: "Defines if the user has children or not."
+          - name: children_amount
+            description: "Number of children of an user."
+          - name: vip_user
+            description: "Defines if the user is a vip member in the shop."

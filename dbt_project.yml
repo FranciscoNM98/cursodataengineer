@@ -45,6 +45,8 @@ models:
         {%- endif -%}
       google_sheets:
         +schema: google_sheets
+      snowflake:
+        +schema: snowflake
       sql_server_dbo:
         +schema: sql_server_dbo
       
@@ -69,3 +71,12 @@ snapshots:
         {%- else -%} {{target.database}}_silver_db_alumno_4
         {%- endif -%}
   +target_schema: snapshots
+
+seeds:
+  +database: |
+        {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno_4 
+        {%- elif target.name == 'ci' -%} dev_silver_db_alumno_4
+        {%- elif target.name == 'pro'-%} pro_silver_db_alumno_4  
+        {%- else -%} {{target.database}}_silver_db_alumno_4
+        {%- endif -%}
+  +schema: snowflake

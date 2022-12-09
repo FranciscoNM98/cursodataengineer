@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_snowflake_products_details
+    description: ""
+    columns:
+      - name: product_id
+        description: "Product identificator."
+
+      - name: price_type
+        description: ""
+
