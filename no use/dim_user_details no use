@@ -1,6 +1,6 @@
 WITH dim_users_details AS (
     SELECT * 
-    FROM {{ ref('stg_sql_server_users') }}
+    FROM {{ source('core', 'dim_users_details') }}
     ),
 
 USERS_DETAILS AS (
