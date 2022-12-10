@@ -25,8 +25,6 @@ sources:
             description: "Birthdate of the user."
           - name: work_status
             description: "Defines if the user is working or not."
-          - name: current_work
-            description: "Current work of the user if they are working."
           - name: salary
             description: "Range of salary of the user"
           - name: children
