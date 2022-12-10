@@ -8,5 +8,5 @@ models:
         description: "Product identificator."
 
       - name: price_type
-        description: ""
+        description: ""{{ doc('price_type') }}""
 

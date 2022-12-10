@@ -19,7 +19,6 @@ USER_DETAILS as (
         civil_status,
         birthdate,
         work_status,
-        current_work,
         salary,
         children,
         children_amount,
