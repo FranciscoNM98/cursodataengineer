@@ -16,7 +16,7 @@ sources:
           - name: user_id
             description: "User identificator."
           - name: age
-            description: "Age of the user that is between 18 and 99."
+            description: "Age of the user that could be between 18 and 99."
           - name: gender
             description: "Gender of the user."
           - name: civil_status
@@ -26,7 +26,7 @@ sources:
           - name: work_status
             description: "Defines if the user is working or not."
           - name: salary
-            description: "Range of salary of the user"
+            description: "Range of salary of the user."
           - name: children
             description: "Defines if the user has children or not."
           - name: children_amount

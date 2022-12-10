@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: stg_snowflake_products_details
+    columns:
+      - name: product_id
+        description: "Product identificator."
+        tests:
+        - not_null
+        - unique
+      - name: price_type
+        description: "{{ doc('price_type') }}"
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Very Expensive', 'Expensive', 'Normal', 'Cheap', 'Very Cheap']
+
+  - name: stg_snowflake_users_details
+    columns:
+      - name: user_id
+        description: "User identificator."
+        tests:
+        - not_null
+        - unique
+      - name: age
+        description: "Age of the user that could be between 18 and 99."
+        tests:
+        - not_null
+        - dbt_utils.accepted_range:
+            min_value: 18
+            max_value: 99
+      - name: gender
+        description: "Gender of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Male', 'Female']
+      - name: civil_status
+        description: "Civil status of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Married', 'Single', 'Divorced', 'Widowed']
+      - name: birthdate
+        description: "Birthdate of the user."
+        tests:
+        - not_null
+      - name: work_status
+        description: "Defines if the user is working or not."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Active', 'Inactive']
+      - name: salary
+        description: "Range of salary of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Low', 'Medium', 'High']
+      - name: children
+        description: "Defines if the user has children or not."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Yes', 'No']
+      - name: children_amount
+        description: "Number of children of an user."
+        tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            expression: '>= 0'
+      - name: vip_user
+        description: "Defines if the user is a vip member in the shop."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Yes', 'No']
