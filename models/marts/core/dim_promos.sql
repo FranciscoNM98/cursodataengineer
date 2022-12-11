@@ -18,3 +18,9 @@ UNION ALL
         'Birthday' as promo_id,
         15  as discount,
         'active' as status
+
+UNION ALL
+    SELECT
+        'VIP' as promo_id,
+        5 as discount,
+        'active' as status

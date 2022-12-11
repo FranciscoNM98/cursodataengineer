@@ -2,7 +2,13 @@ version: 2
 
 sources:
   - name: snowflake
-    database: dev_bronze_db_alumno_4
+    schema: snowflake
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno_4
+        {%- else -%} {{target.database}}_bronze_db_alumno_4
+        {%- endif -%}
     tables:
       - name: products_details
         columns:
