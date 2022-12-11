@@ -2,7 +2,13 @@ version: 2
 
 sources:
   - name: snowflake
-    database: dev_bronze_db_alumno_4
+    schema: snowflake
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno_4
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno_4
+        {%- else -%} {{target.database}}_bronze_db_alumno_4
+        {%- endif -%}
     tables:
       - name: products_details
         columns:
@@ -16,7 +22,7 @@ sources:
           - name: user_id
             description: "User identificator."
           - name: age
-            description: "Age of the user that is between 18 and 99."
+            description: "Age of the user that could be between 18 and 99."
           - name: gender
             description: "Gender of the user."
           - name: civil_status
@@ -26,7 +32,7 @@ sources:
           - name: work_status
             description: "Defines if the user is working or not."
           - name: salary
-            description: "Range of salary of the user"
+            description: "Range of salary of the user."
           - name: children
             description: "Defines if the user has children or not."
           - name: children_amount
