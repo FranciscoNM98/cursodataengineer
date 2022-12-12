@@ -1,6 +1,6 @@
 version: 2
 
-models:
+seeds:
   - name: stg_snowflake_products_details
     columns:
       - name: product_id
@@ -12,8 +12,9 @@ models:
         description: "{{ doc('price_type') }}"
         tests:
         - not_null
-        - accepted_values:
-           values: ['Very Expensive', 'Expensive', 'Normal', 'Cheap', 'Very Cheap']
+        - dbt_utils.accepted_range:
+            min_value: 1
+            max_value: 5
 
   - name: stg_snowflake_users_details
     columns:
