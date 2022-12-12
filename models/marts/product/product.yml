@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: products_averages
+    description: "General averages of products stats"
+    columns:
+      - name: products_inventory_avg
+        description: "General average of the inventory of all products."
+        tests:
+        - not_null
+      - name: products_price_$_avg
+        description: "General average price of all producs."
+        tests:
+        - not_null
+      - name: products_price_type_avg
+        description: "General average of price type that gives a look at how cheap/expensive they are."
+        tests:
+        - not_null
+
+  - name: products_prices
+    description: "Defines how cheap/expensive is every product."
+    columns:
+      - name: product_id
+        description: "Product identificator."
+        tests:
+        - not_null
+      - name: name
+        description: "Product name."
+        tests:
+        - not_null
+        - unique
+      - name: price_type
+        description: "{{ doc('price_type3') }}"
+        tests:
+        - not_null
+        - dbt_utils.accepted_range:
+            min_value: 1
+            max_value: 5
