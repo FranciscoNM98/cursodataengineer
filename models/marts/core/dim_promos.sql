@@ -16,7 +16,7 @@ SELECT * FROM PROMOS
 UNION ALL
     SELECT
         'Birthday' as promo_id,
-        15  as discount,
+        15 as discount,
         'active' as status
 
 UNION ALL

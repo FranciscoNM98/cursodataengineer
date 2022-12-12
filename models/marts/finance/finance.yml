@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: total_income
+    description: "Information about the orders income."
+    columns:
+      - name: shipping_cost_total_income
+        description: "Total income of the shipping cost."
+        tests:
+        - not_null
+      - name: shipping_cost_avg_income
+        description: "Average income of the shipping cost."
+        tests:
+        - not_null
+      - name: order_cost_total_income
+        description: "Total income of the order cost."
+        tests:
+        - not_null
+      - name: order_cost_avg_income
+        description: "Average income of the order cost."
+        tests:
+        - not_null
+      - name: order_total_total_income
+        description: "Total income of the order total cost."
+        tests:
+        - not_null
+      - name: order_total_avg_income
+        description: "Average income of the order total cost."
+        tests:
+        - not_null
+
+  - name: birthday_income
+    description: "Information about the income in the orders with birthday promotion."
+    columns:
+      - name: birthday_order_cost_total_income
+        description: "Total income of the order cost with birthday promo."
+        tests:
+        - not_null
+      - name: birthday_order_cost_avg_income
+        description: "Average income of the order cost with birthday promo."
+        tests:
+        - not_null
+
+  - name: vip_income
+    description: "Information about the income in the orders with VIP promotion."
+    columns:
+      - name: vip_order_cost_total_income
+        description: "Total income of the order cost with VIP promo."
+        tests:
+        - not_null
+      - name: vip_order_cost_avg_income
+        description: "Average income of the order cost with VIP promo."
+        tests:
+        - not_null

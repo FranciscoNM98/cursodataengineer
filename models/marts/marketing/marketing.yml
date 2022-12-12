@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: users_stats
+    description: "Statistics of the users."
+    columns:
+      - name: age_avg
+        description: "Average of the users age."
+
+      - name: children_avg
+        description: "Average number of children of the users."
+
+  - name: users_male_stats
+    description: "Statistics of the male users."
+    columns:
+      - name: male_count
+        description: "Number of male users out of the total."
+
+      - name: male_age_avg
+        description: "Average of the male users age."
+
+      - name: male_children_avg
+        description: "Average number of children of the male users."
+
+  - name: users_female_stats
+    description: "Statistics of the female users."
+    columns:
+      - name: female_count
+        description: "Number of female users out of the total."
+
+      - name: female_age_avg
+        description: "Average of the female users age."
+
+      - name: female_children_avg
+        description: "Average number of children of the female users."
