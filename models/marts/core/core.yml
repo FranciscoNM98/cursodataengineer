@@ -1,0 +1,305 @@
+version: 2
+
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        description: "Order identificator."
+        tests:
+              - not_null
+              - unique
+      - name: address_id
+        description: "Address identificator."
+        tests:
+              - not_null
+      - name: user_id
+        description: "User identificator."
+        tests:
+              - not_null
+      - name: tracking_id
+        description: "Tracking identificator."
+      - name: promo_id
+        description: "Name of the promotion."
+      - name: order_creation
+        description: "Date of order creation."
+        tests:
+              - not_null
+      - name: order_estimated_delivery
+        description: "Date of estimated order delivery."
+      - name: order_delivery
+        description: "Date of order delivery."
+      - name: days_to_deliver
+        description: "Days between the order creation and the final delivery."
+      - name: status
+        description: "{{ doc('order_status2') }}"
+        tests:
+              - not_null
+              - accepted_values:
+                 values: ['delivered', 'shipped', 'preparing']
+      - name: shipping_service
+        description: "Shipping service that is in charge of the order."
+      - name: shipping_cost_$
+        description: "Cost of the shipping service."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+      - name: order_cost_$
+        description: "Cost of the order."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+      - name: order_total_$
+        description: "Total cost of combined order and shipping costs."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+
+  - name: dim_addresses
+    columns:
+      - name: address_id
+        description: "Address identificator."
+        tests:
+              - not_null
+              - unique
+      - name: country
+        description: "Country of residence."
+        tests:
+              - not_null
+      - name: state
+        description: "State of residence."
+        tests:
+              - not_null
+      - name: zipcode
+        description: "Zipcode of the client."
+        tests:
+              - not_null
+      - name: address
+        description: "Client address."
+        tests:
+              - not_null
+
+  - name: dim_date
+    columns:
+      - name: date_forecast
+        description: "Date with year, month and day."
+        tests:
+              - not_null
+      - name: id_date
+        description: "Date identificator."
+        tests:
+              - not_null
+              - unique
+      - name: year
+        description: "Extracted year of the date."
+        tests:
+              - not_null
+      - name: month
+        description: "Extracted month of the date."
+        tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 1
+                  max_value: 12
+      - name: desc_month
+        description: "Month name."
+        tests:
+              - not_null
+              - accepted_values:
+                 values: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      - name: id_year_month
+        description: "Year and month identificator."
+        tests:
+              - not_null
+      - name: previous_day
+        description: "Previous day of the date."
+        tests:
+              - not_null
+      - name: year_week_day
+        description: "Extracted year, week and day of the date."
+        tests:
+              - not_null
+      - name: week
+        description: "Week of the date."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+
+  - name: dim_order_items
+    columns:
+      - name: order_id
+        description: "Order identificator."
+        tests:
+              - not_null
+      - name: product_id
+        description: "Product identificator."
+        tests:
+              - not_null
+      - name: item_quantity
+        description: "Quantity of an item."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+
+  - name: dim_products_details
+    columns:
+      - name: product_id
+        description: "Product identificator."
+        tests:
+              - not_null
+              - unique
+      - name: price_type
+        description: "{{ doc('price_type2') }}"
+        tests:
+        - not_null
+        - dbt_utils.accepted_range:
+            min_value: 1
+            max_value: 5
+
+  - name: dim_products
+    columns:
+      - name: product_id
+        description: "Product identificator."
+        tests:
+              - not_null
+              - unique
+      - name: name
+        description: "Product name."
+        tests:
+              - not_null
+              - unique
+      - name: inventory
+        description: "Quantity of products in the inventory."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+      - name: price_$
+        description: "Product price."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+
+  - name: dim_promos
+    columns:
+      - name: promo_id
+        description: "Name of the promotion."
+        tests:
+              - not_null
+              - unique
+      - name: discount_$
+        description: "Discount in dollars to the order."
+        tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: '>= 0'
+      - name: status
+        description: "Status of the promotion."
+        tests:
+              - not_null
+              - accepted_values:
+                 values: ['active', 'inactive']
+
+  - name: dim_users_details
+    columns:
+      - name: user_id
+        description: "User identificator."
+        tests:
+              - not_null
+              - unique
+      - name: age
+        description: "Age of the user that could be between 18 and 99."
+        tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 18
+                  max_value: 99
+      - name: gender
+        description: "Gender of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Male', 'Female']
+      - name: civil_status
+        description: "Civil status of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Married', 'Single', 'Divorced', 'Widowed']
+      - name: birthdate
+        description: "Birthdate of the user."
+        tests:
+        - not_null
+      - name: work_status
+        description: "Defines if the user is working or not."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Active', 'Inactive']
+      - name: salary
+        description: "Range of salary of the user."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Low', 'Medium', 'High']
+      - name: children
+        description: "Defines if the user has children or not."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Yes', 'No']
+      - name: children_amount
+        description: "Number of children of an user."
+        tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            expression: '>= 0'
+      - name: vip_user
+        description: "Defines if the user is a vip member in the shop."
+        tests:
+        - not_null
+        - accepted_values:
+           values: ['Yes', 'No']
+
+  - name: dim_users
+    columns:
+      - name: user_id
+        description: "User identificator."
+        tests:
+              - not_null
+              - unique
+      - name: address_id
+        description: "Address identificator."
+        tests:
+              - not_null
+      - name: first_name
+        description: "First name."
+        tests:
+              - not_null
+      - name: last_name
+        description: "Last name."
+        tests:
+              - not_null
+      - name: email
+        description: "Email of the user."
+        tests:
+              - not_null
+              - unique
+      - name: phone_number
+        description: "Phone number of the user."
+        tests:
+              - not_null
+              - unique
+      - name: date_creation
+        description: "Date of user creation."
+        tests:
+              - not_null
+      - name: date_update
+        description: "Date of last update."
+        tests:
+              - not_null

@@ -1,4 +1,4 @@
-{% docs price_type %}
+{% docs price_type2 %}
 	
 Defines the price with a range in terms of how cheap/expensive it is.
 
