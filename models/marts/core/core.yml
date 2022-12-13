@@ -242,7 +242,7 @@ models:
         - accepted_values:
            values: ['Active', 'Inactive']
       - name: salary
-        description: "Range of salary of the user."
+        description: "{{ doc('salary') }}"
         tests:
         - not_null
         - accepted_values:
